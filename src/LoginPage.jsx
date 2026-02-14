@@ -7,11 +7,14 @@ async function loginAction(_, formData) {
   try {
     const json = Object.fromEntries(formData);
 
-    const res = await fetch("http://127.0.0.1:8000/api/login/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(json),
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/login/`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(json),
+      }
+    );
 
     const data = await res.json();
 
@@ -31,6 +34,7 @@ async function loginAction(_, formData) {
       message: data.message || "Invalid credentials",
       success: false,
     };
+
   } catch (error) {
     return {
       message: "Server Error. Try again.",
@@ -38,6 +42,7 @@ async function loginAction(_, formData) {
     };
   }
 }
+
 
 /* ---------- COMPONENT ---------- */
 export default function LoginPage() {
